@@ -1,11 +1,15 @@
 import Text from '@/components/Text'
+import Select from '@/components/Select'
 
-const Form = ({ onSubmit, reset }) => {
+const meatLabel = <p>Enter the weight of your meat here. Change the field above to enter in lbs.</p>
+const nitriteLabel = <p>Check the nitrite % of your curing salt. Common values are 6.25% or 5%.</p>
 
+const Form = ({ onSubmit, reset, unit, changeUnit }) => {
   return (
-    <form onSubmit={onSubmit} className="mb-8">
-      <Text name="meat_weight" label="Meat weight" postfix="g" />
-      <Text name="cure_percentage" label="Cure #1 % nitrite" postfix="%" />
+    <form onSubmit={onSubmit} className="mb-8 text-sm max-w-lg">
+      <Select name="weights" label="Meat weight unit" onChange={changeUnit} unit={unit} />
+      <Text name="meat_weight" label="Meat weight" fullLabel={meatLabel} postfix={unit === 'metric' ? 'g' : 'lbs'} />
+      <Text name="cure_percentage" label="Cure #1 nitrite %" fullLabel={nitriteLabel} postfix="%" />
       <Text name="salt_percentage" label="Desired salt %" postfix="%" />
       <Text name="sugar_percentage" label="Desired sugar %" postfix="%" />
       <Text name="ppm_nitrite" label="Parts per million nitrite" postfix="ppm" />

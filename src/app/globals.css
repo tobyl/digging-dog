@@ -2,21 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 75, 75, 75;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html {
+  height: 100vh;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: 
+  min-height: 100vh;
+  color: text-slate-500;
+  background: bg-slate-100;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: text-slate-100;
+    background: bg-slate-500;
+  }
+}
+
+#ppm_nitrite-field {
+  border: none !important;
 }

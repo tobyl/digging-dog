@@ -1,54 +1,42 @@
 'use client'
 
-import classNames from 'classnames'
+import { useState } from 'react'
 import useForm from '@/utils/useForm'
 import Form from '@/components/Form'
+import Dialog from '@/components/Dialog'
 import { FormContext } from '@/utils/context'
 
 const Calculator = () => {
 
-  const { data, errors, setValue, results, calculate, reset, setFieldError, clearFieldError } = useForm()
+  const [dialogOpen, setDialogOpen] = useState(false)
+
+  const { data, errors, warnings, setValue, results, calculate, reset, setFieldError, clearFieldError, unit, changeUnit } = useForm()
 
   const handleSubmit = e => {
     e.preventDefault()
+    let error = false 
     Object.keys(data).forEach(d => {
       if (data[d] === '') {
         setFieldError(d, 'This field is required!')
-        return
+        error = true
       }
     })
-    if (Object.keys(errors).length < 1) {
+    if (!error) {
       calculate()
+      setDialogOpen(true)
     }
   }
 
-  const resultsCls = classNames({
-    'opacity-0': !results.total,
-    'opacity-100': results.total,
-  })
-
   return (
-    <FormContext.Provider value={{ data, errors, setValue, clearFieldError }}>
-      <Form onSubmit={handleSubmit} reset={reset} />
-      <div className={resultsCls}>
-        <h3 className="font-medium mb-4">Results</h3>
-        <div>
-          <ul className="text-sm">
-            <li className="grid grid-cols-2 gap-4 border-b border-slate-300 py-2">
-              <span className="text-right font-medium">Cure #1 weight:</span> <span>{results.cure} <small className="text-slate-500">grams</small></span>
-            </li>
-            <li className="grid grid-cols-2 gap-4 border-b border-slate-300 py-2">
-            <span className="text-right font-medium">Salt weight:</span> <span>{results.salt} <small className="text-slate-500">grams</small></span>
-            </li>
-            <li className="grid grid-cols-2 gap-4 border-b border-slate-300 py-2">
-              <span className="text-right font-medium">Sugar weight:</span> <span>{results.sugar} <small className="text-slate-500">grams</small></span>
-            </li>
-            <li className="grid grid-cols-2 gap-4 py-2">
-            <span className="text-right font-medium">Total:</span> <span>{results.total} <small className="text-slate-500">grams</small></span>
-            </li>
-          </ul>
-        </div>
+    <FormContext.Provider value={{ data, errors, warnings, setValue, clearFieldError, unit, changeUnit }}>
+      <div className="flex justify-center">
+        <Form onSubmit={handleSubmit} reset={reset} unit={unit} changeUnit={changeUnit} />
       </div>
+      <Dialog
+        dialogOpen={dialogOpen}
+        setDialogOpen={setDialogOpen}
+        results={results}
+      />
     </FormContext.Provider>
   )
 }

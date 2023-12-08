@@ -7,12 +7,18 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      keyframes: {
+        "fade-in": {
+          '0%': { opacity: '0%' },
+          '100%': { opacity: '100%' },
+        }
+      },
+      animation: {
+        "fade-in": 'fade-in 0.35s ease-in-out',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("daisyui"),
+  ],
 }
