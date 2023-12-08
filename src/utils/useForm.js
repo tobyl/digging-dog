@@ -31,7 +31,7 @@ const useForm = () => {
     })
     if (name === 'cure_percentage') {
       if (value !== '6.25') {
-        setFieldWarning('cure_percentage', <span>You probably don't want to change this! <Link href="/help" className="inline-block font-semibold text-amber-700">Read more</Link></span>)
+        setFieldWarning('cure_percentage', <span>You probably don’t want to change this! <Link href="/help" className="inline-block font-semibold text-amber-700">Read more</Link></span>)
       } else {
         setWarning(prevState => {
           const next = Object.assign({}, prevState)
