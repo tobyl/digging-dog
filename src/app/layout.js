@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'EQ Dry Cure Calculator',
   description: 'Calculate dry cure ingredient amounts for your bacon and cured meats.',
+  'google-adsense-account': 'ca-pub-5121886221175541',
   openGraph: {
     images: [
       {
